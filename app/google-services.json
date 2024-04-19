@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "5010673937",
+    "project_id": "fitx-d409b",
+    "storage_bucket": "fitx-d409b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5010673937:android:c83fcba02ce124766f7cb0",
+        "android_client_info": {
+          "package_name": "com.project.fitx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcQ_naX6GFeBzeCz14DP32WGtDf6Ns7d0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
