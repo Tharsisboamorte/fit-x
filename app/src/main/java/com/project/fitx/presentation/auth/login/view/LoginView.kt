@@ -1,6 +1,7 @@
 package com.project.fitx.presentation.auth.login.view
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,13 +26,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.project.fitx.data.Resource
+import com.project.fitx.data.datasource.AuthRepositoryImpl
+import com.project.fitx.presentation.auth.AuthViewModel
 import com.project.fitx.presentation.auth.components.DefaultButton
 import com.project.fitx.presentation.auth.components.FormTextField
 import com.project.fitx.presentation.auth.components.PasswordTextField
@@ -40,11 +46,14 @@ import com.project.fitx.ui.theme.Purple40
 @Composable
 fun LoginView(
     navController: NavController,
+    viewModel: AuthViewModel,
 ) {
     var textFieldValue by remember {
-        mutableStateOf(TextFieldValue(""))
+        mutableStateOf("")
     }
     var passwordTextValue by rememberSaveable { mutableStateOf("") }
+
+    val loginFlow = viewModel.loginFlow.collectAsState()
 
     Scaffold(
         containerColor = Color.White
@@ -65,22 +74,25 @@ fun LoginView(
                 modifier = Modifier.padding(bottom = 15.dp),
                 hint = "fulano@gmail.com",
                 icon = Icons.Outlined.Face,
-                textValue = textFieldValue.text,
+                onValueChanged = { emailInput -> textFieldValue = emailInput },
                 label = "E-mail",
-                isRequired = true
+                text = textFieldValue
             )
             PasswordTextField(
-                textValue = passwordTextValue,
-                modifier = Modifier.padding(bottom = 25.dp)
+                onValueChanged = { password -> passwordTextValue = password },
+                modifier = Modifier.padding(bottom = 25.dp),
+                password = passwordTextValue
             )
             Spacer(modifier = Modifier.height(25.dp))
             DefaultButton(
                 modifier = Modifier
-                    .padding(15.dp)
+                    .padding(bottom = 15.dp)
                     .width(280.dp)
                     .height(50.dp),
                 label = "Sign in",
-                onAction = { /*TODO*/ },
+                onAction = {
+                    viewModel.login(email = textFieldValue, password = passwordTextValue)
+                },
                 color = ButtonDefaults.elevatedButtonColors(containerColor = Color.White),
                 textColor = Purple40,
                 borderStroke = BorderStroke(2.dp, color = Purple40)
@@ -90,10 +102,35 @@ fun LoginView(
                     .width(280.dp)
                     .height(50.dp),
                 label = "Sign Up",
-                onAction = { navController.navigate("register") },
+                onAction = {
+                    navController.navigate("register") {
+                        popUpTo("register") {
+                            inclusive = true
+                        }
+                    }
+                },
                 color = ButtonDefaults.elevatedButtonColors(containerColor = Purple40),
                 textColor = Color.White
             )
+        }
+
+        loginFlow.value.let {
+            when (it) {
+                is Resource.Error -> {
+                    val context = LocalContext.current
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
+
+                is Resource.Success -> {
+                    navController.navigate("home") {
+                        popUpTo("home") {
+                            inclusive = true
+                        }
+                    }
+                }
+
+                null -> {}
+            }
         }
     }
 }
@@ -102,7 +139,8 @@ fun LoginView(
 @Composable
 fun PreviewLogin() {
     val navControl = rememberNavController()
+    val viewModel = AuthViewModel(repository = AuthRepositoryImpl(FirebaseAuth.getInstance()))
     Surface {
-        LoginView(navController = navControl)
+        LoginView(navController = navControl, viewModel = viewModel)
     }
 }

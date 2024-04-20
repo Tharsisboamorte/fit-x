@@ -12,14 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,10 +25,10 @@ import com.project.fitx.R
 
 @Composable
 fun PasswordTextField(
-    textValue: String,
     modifier: Modifier = Modifier,
+    onValueChanged: (String) -> Unit,
+    password: String,
 ) {
-    var password by rememberSaveable { mutableStateOf(textValue) }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     Column(
@@ -43,9 +41,7 @@ fun PasswordTextField(
         )
         OutlinedTextField(
             value = password,
-            onValueChange = { newValue ->
-                password = newValue
-            },
+            onValueChange = onValueChanged,
             placeholder = {
                 Text(text = "Senha", color = Color.Gray)
             },

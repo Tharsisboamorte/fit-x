@@ -7,6 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.project.fitx.presentation.auth.AuthViewModel
 import com.project.fitx.presentation.auth.login.view.LoginView
+import com.project.fitx.presentation.auth.register.view.SignUpView
+import com.project.fitx.presentation.home.view.HomeView
 
 @Composable
 fun AppNavHost(
@@ -17,16 +19,16 @@ fun AppNavHost(
         navController = navController,
         startDestination = "login",
     ) {
-        composable("login"){
-            LoginView(navController = navController)
+        composable("login") {
+            LoginView(navController = navController, viewModel = viewModel)
         }
-        composable("register"){
-            //TODO: (Add instance of signUpPage)
+        composable("register") {
+            SignUpView(navController = navController, viewModel = viewModel)
         }
-        composable("home"){
-            //TODO: (Add instance of homePage)
+        composable("home") {
+            HomeView()
         }
-        composable("details"){
+        composable("details") {
             //TODO: (Add instance of trainingPage)
         }
     }
