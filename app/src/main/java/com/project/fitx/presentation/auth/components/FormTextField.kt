@@ -27,18 +27,20 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun FormTextField(
+    modifier: Modifier = Modifier,
     hint: String,
     icon: ImageVector,
     textValue: String,
     label: String,
-    onTextChanged: (String) -> Unit,
     isRequired: Boolean,
 ) {
     var textFieldValue by remember {
         mutableStateOf(TextFieldValue(text = textValue))
     }
 
-    Column {
+    Column(
+        modifier = modifier
+    ) {
         Text(
             text = "$label ${if (isRequired) "*" else ""}",
             fontSize = 16.sp,
@@ -48,7 +50,6 @@ fun FormTextField(
             value = textFieldValue,
             onValueChange = { newValue ->
                 textFieldValue = newValue
-                onTextChanged(newValue.text)
             },
             placeholder = {
                 Text(text = hint, color = Color.Gray)
@@ -77,7 +78,6 @@ fun PreviewTextField() {
             FormTextField(
                 hint = "Fulano",
                 icon = Icons.Default.Face,
-                onTextChanged = {},
                 textValue = "",
                 label = "Name",
                 isRequired = true
