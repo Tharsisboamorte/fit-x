@@ -35,7 +35,9 @@ fun HomeView(
 ) {
     Scaffold(
         topBar = {
-            UserAppBar(name = "Fulano", logOutAction = {}, deleteAction = {})
+            UserAppBar(name = "Fulano", onAction = {
+                navController.navigate("")
+            })
         },
         bottomBar = {
             Row(

@@ -41,6 +41,10 @@ class AuthViewModel @Inject constructor(
         _registerFlow.value = result
     }
 
+    fun delete() = viewModelScope.launch {
+        repository.delete()
+    }
+
 
     fun logout(){
         repository.logout()

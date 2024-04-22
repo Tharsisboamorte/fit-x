@@ -9,6 +9,7 @@ import com.project.fitx.presentation.auth.AuthViewModel
 import com.project.fitx.presentation.auth.login.view.LoginView
 import com.project.fitx.presentation.auth.register.view.SignUpView
 import com.project.fitx.presentation.home.view.HomeView
+import com.project.fitx.presentation.profile.ProfileView
 import com.project.fitx.presentation.training.view.TrainingView
 
 @Composable
@@ -31,6 +32,9 @@ fun AppNavHost(
         }
         composable("details") {
             TrainingView(navController = navController, trainingTitle = "Title")
+        }
+        composable("profile") {
+            ProfileView(navController = navController, viewModel = viewModel)
         }
     }
 }
