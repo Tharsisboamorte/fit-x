@@ -9,6 +9,7 @@ import com.project.fitx.presentation.auth.AuthViewModel
 import com.project.fitx.presentation.auth.login.view.LoginView
 import com.project.fitx.presentation.auth.register.view.SignUpView
 import com.project.fitx.presentation.home.view.HomeView
+import com.project.fitx.presentation.training.view.TrainingView
 
 @Composable
 fun AppNavHost(
@@ -26,10 +27,10 @@ fun AppNavHost(
             SignUpView(navController = navController, viewModel = viewModel)
         }
         composable("home") {
-            HomeView()
+            HomeView(navController = navController)
         }
         composable("details") {
-            //TODO: (Add instance of trainingPage)
+            TrainingView(navController = navController, trainingTitle = "Title")
         }
     }
 }

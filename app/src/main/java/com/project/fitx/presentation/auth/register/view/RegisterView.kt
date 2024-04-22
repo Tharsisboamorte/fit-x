@@ -34,7 +34,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.project.fitx.data.Resource
-import com.project.fitx.data.datasource.AuthRepositoryImpl
+import com.project.fitx.data.datasource.auth.AuthRepositoryImpl
 import com.project.fitx.presentation.auth.AuthViewModel
 import com.project.fitx.presentation.auth.components.DefaultButton
 import com.project.fitx.presentation.auth.components.FormTextField

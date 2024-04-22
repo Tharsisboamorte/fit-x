@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.project.fitx"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -77,6 +77,8 @@ dependencies {
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    implementation("com.google.firebase:firebase-firestore:24.11.1")
+    implementation ("com.google.firebase:firebase-storage:20.3.0")
 
     //Dagger-Hilt
     implementation("com.google.dagger:hilt-android:2.51")

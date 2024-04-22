@@ -1,4 +1,4 @@
-package com.project.fitx.data.datasource
+package com.project.fitx.data.datasource.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -37,6 +37,14 @@ class AuthRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(e.message!!)
+        }
+    }
+
+    override suspend fun delete() {
+        try {
+            firebaseAuth.currentUser!!.delete()
+        } catch (e: Exception){
+            e.printStackTrace()
         }
     }
 

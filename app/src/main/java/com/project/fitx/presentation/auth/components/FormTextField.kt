@@ -43,27 +43,3 @@ fun FormTextField(
         )
     }
 }
-
-
-//@Preview
-//@Composable
-//fun PreviewTextField() {
-//    Surface(
-//        modifier = Modifier.fillMaxSize()
-//    ) {
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth(),
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        ) {
-//            FormTextField(
-//                hint = "Fulano",
-//                icon = Icons.Default.Face,
-//                textValue = "",
-//                label = "Name",
-//                isRequired = true
-//            )
-//        }
-//    }
-//}

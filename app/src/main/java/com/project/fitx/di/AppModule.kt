@@ -1,8 +1,8 @@
 package com.project.fitx.di
 
 import com.google.firebase.auth.FirebaseAuth
-import com.project.fitx.data.datasource.AuthRepository
-import com.project.fitx.data.datasource.AuthRepositoryImpl
+import com.project.fitx.data.datasource.auth.AuthRepository
+import com.project.fitx.data.datasource.auth.AuthRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

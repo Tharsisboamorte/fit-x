@@ -1,15 +1,16 @@
 package com.project.fitx.presentation.home.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,9 +20,14 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,15 +44,15 @@ fun UserAppBar(
     deleteAction: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    var toggleVisibility = false
+    var toggleVisibility by remember { mutableStateOf(false) }
 
-    Card(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(90.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = PrimaryTheme
-        )
+            .height(90.dp)
+            .clip(shape = RoundedCornerShape(bottomStart = 15.dp, bottomEnd = 15.dp)),
+        color = PrimaryTheme,
+        shadowElevation = 15.dp,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -80,7 +86,9 @@ fun UserAppBar(
             }
             DropdownMenu(
                 expanded = toggleVisibility,
-                onDismissRequest = { toggleVisibility = false }) {
+                onDismissRequest = { toggleVisibility = false },
+                modifier = Modifier.align(alignment = Alignment.CenterVertically)
+            ) {
                 DropdownMenuItem(text = { Text(text = "LogOut") }, onClick = logOutAction)
                 DropdownMenuItem(text = { Text(text = "Delete Account") }, onClick = deleteAction)
             }
@@ -91,11 +99,15 @@ fun UserAppBar(
 @Preview
 @Composable
 fun PreviewUserBar() {
-    Surface {
-        UserAppBar(
-            name = "Fulano",
-            logOutAction = {},
-            deleteAction = {}
-        )
+    Surface(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Box {
+            UserAppBar(
+                name = "Fulano",
+                logOutAction = {},
+                deleteAction = {}
+            )
+        }
     }
 }
