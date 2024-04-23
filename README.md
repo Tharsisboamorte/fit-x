@@ -15,7 +15,8 @@
 ![image](https://github.com/Tharsisboamorte/fit-x/assets/85424269/c552b179-451a-4b28-9b0b-e68ae8b72f24)
 ![image](https://github.com/Tharsisboamorte/fit-x/assets/85424269/3afe6e5c-eefd-4645-bd10-6a64baef4178)
 
-##Observações:
+## Observações:
+
 ### O app ainda apresenta alguns problemas de perfomance e crashs, principalmente nas partes de login e registro, problemas que facilmente serão sanados, porém devido ao curto periodo de tempo para realizar o desafio, algumas coisas foram deixadas de lado para priorizar mais sérias
 
 
