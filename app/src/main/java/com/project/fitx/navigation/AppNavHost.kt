@@ -2,9 +2,11 @@ package com.project.fitx.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.project.fitx.presentation.auth.AuthViewModel
 import com.project.fitx.presentation.auth.login.view.LoginView
 import com.project.fitx.presentation.auth.register.view.SignUpView
@@ -32,10 +34,23 @@ fun AppNavHost(
             SignUpView(navController = navController, viewModel = authViewModel)
         }
         composable("home") {
-            HomeView(navController = navController, homeViewModel = homeViewModel)
+            HomeView(navController = navController, viewModel = homeViewModel)
         }
-        composable("details") {
-            TrainingView(navController = navController, trainingViewModel = trainingViewModel)
+        composable(
+            route = "details?title={title}",
+            arguments = listOf(
+                navArgument("title") {
+                    type = NavType.StringType
+                    defaultValue = "Treinamento Padrão"
+                }
+            )) { backStackEntry ->
+            backStackEntry.arguments?.getString("title")?.let {
+                TrainingView(
+                    navController = navController,
+                    viewModel = trainingViewModel,
+                    title = it
+                )
+            }
         }
         composable("profile") {
             ProfileView(navController = navController, viewModel = authViewModel)

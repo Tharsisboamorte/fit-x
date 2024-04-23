@@ -1,5 +1,8 @@
 package com.project.fitx.presentation.training
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.fitx.data.Resource
@@ -14,16 +17,33 @@ class TrainingViewModel @Inject constructor(
     private val repository: ExerciseRepository
 ) : ViewModel() {
 
-    private val _listFlow = mutableListOf<List<Exercise>>()
-    val exercisesList: List<Exercise>
-        get() = _listFlow
-            .filterIsInstance<Resource.Success<List<Exercise>>>()
-            .flatMap { it.data ?: emptyList() }
+    private val _listFlow = mutableListOf<Exercise>()
+    val exercisesList: MutableList<Exercise> = _listFlow
 
-    fun getExercises() = viewModelScope.launch {
-        val response = repository.getExercises()
-        response.data?.let {
-            _listFlow.add(it)
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
+    init {
+        getExercises()
+    }
+
+    private fun getExercises() = viewModelScope.launch {
+        _loading.value = true // Set loading state to true before making the request
+        when (val result = repository.getExercises()) {
+            is Resource.Success -> {
+                result.data?.let { exercises ->
+                    Log.d("Exercices_viewmodels", "getExercises: $exercises")
+                    _listFlow.addAll(exercises)
+                }
+                _loading.value = false // Set loading state to false after successful request
+            }
+
+            is Resource.Error -> {
+                // Handle error
+                result.message
+                _loading.value = false // Set loading state to false after error
+            }
         }
     }
 }

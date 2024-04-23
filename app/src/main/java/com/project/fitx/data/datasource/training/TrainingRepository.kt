@@ -5,7 +5,7 @@ import com.project.fitx.data.model.Training
 
 interface TrainingRepository {
 
-    suspend fun createTraining(training: Training)
+    suspend fun createTraining(description: String)
 
     suspend fun getTraining(): Resource<List<Training>>
 

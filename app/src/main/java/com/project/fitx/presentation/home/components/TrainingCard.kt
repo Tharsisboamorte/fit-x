@@ -52,12 +52,16 @@ fun TrainingCard(
         ) {
             Column(
                 modifier = Modifier
-                    .width(320.dp)
+                    .width(300.dp)
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start,
             ) {
-                Text(text = description, modifier = Modifier.padding(start = 5.dp))
+                Text(
+                    text = description,
+                    modifier = Modifier.padding(start = 5.dp),
+                    color = Color.Black
+                )
                 Text(text = date, modifier = Modifier.padding(start = 5.dp))
             }
             Row(

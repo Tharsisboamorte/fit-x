@@ -6,9 +6,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,32 +26,22 @@ fun PopupBox(
 
     if (showPopup) {
 
-        Card(
-            modifier = Modifier
-                .wrapContentSize()
-                .background(color = Color.Transparent),
-            shape = RoundedCornerShape(15.dp),
-            border = BorderStroke(width = 3.dp, color = PrimaryTheme)
+        Popup(
+            alignment = Alignment.Center,
+            properties = PopupProperties(
+                excludeFromSystemGesture = true,
+            ),
+            onDismissRequest = { onClickOutside() }
         ) {
-            // popup
-            Popup(
-                alignment = Alignment.Center,
-                properties = PopupProperties(
-                    excludeFromSystemGesture = true,
-                ),
-                // to dismiss on click outside
-                onDismissRequest = { onClickOutside() }
+            Box(
+                Modifier
+                    .width(popupWidth.dp)
+                    .height(popupHeight.dp)
+                    .background(color = Color.White)
+                    .border(border = BorderStroke(width = 5.dp, color = PrimaryTheme)),
+                contentAlignment = Alignment.Center
             ) {
-                Box(
-                    Modifier
-                        .width(popupWidth.dp)
-                        .height(popupHeight.dp)
-                        .background(color = Color.White)
-                        .border(border = BorderStroke(width = 5.dp, color = PrimaryTheme)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    content()
-                }
+                content()
             }
         }
     }

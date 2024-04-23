@@ -124,6 +124,7 @@ fun ProfileView(
                     onCancel = { showPopup = false },
                     onContinue = {
                         viewModel.delete()
+                        showPopup = false
                         navController.navigate("login")
                     })
             }

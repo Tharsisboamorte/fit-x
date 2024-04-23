@@ -1,6 +1,8 @@
 package com.project.fitx.data.datasource.auth
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.project.fitx.data.Resource
@@ -42,9 +44,14 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun delete() {
         try {
-            firebaseAuth.currentUser!!.delete()
-        } catch (e: Exception){
+            val response = firebaseAuth.currentUser?.delete()?.await()
+            Resource.Success(response)
+        } catch (e: FirebaseAuthException) {
+            Log.e("DeleteAccount", "FirebaseAuthException: ${e.message}", e)
+        } catch (e: Exception) {
             e.printStackTrace()
+            Resource.Error("Error: ${e.message}", null)
+            Log.e("DeleteAccount", "Exception: ${e.message}", e)
         }
     }
 

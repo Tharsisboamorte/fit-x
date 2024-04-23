@@ -43,6 +43,8 @@ class AuthViewModel @Inject constructor(
 
     fun delete() = viewModelScope.launch {
         repository.delete()
+        _loginFlow.value = null
+        _registerFlow.value = null
     }
 
 

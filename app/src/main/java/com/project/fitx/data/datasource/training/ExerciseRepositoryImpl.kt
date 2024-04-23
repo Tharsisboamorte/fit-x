@@ -1,5 +1,6 @@
 package com.project.fitx.data.datasource.training
 
+import android.util.Log
 import androidx.core.net.toUri
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.fitx.data.Resource
@@ -17,15 +18,17 @@ class ExerciseRepositoryImpl @Inject constructor(
             val querySnapshot = exercisesCollection.get().await()
             val exerciseList = mutableListOf<Exercise>()
 
-            for (document in querySnapshot.documents) {
+            for (document in querySnapshot) {
                 val name = document.getLong("nome")?.toInt() ?: 0
-                val image = document.getString("nome") ?: ""
-                val observations = document.getString("nome") ?: ""
+                val image = document.getString("imagem") ?: ""
+                val observations = document.getString("obsercacoes") ?: ""
                 val exercise =
                     Exercise(name = name, img = image.toUri(), observations = observations)
+                Log.d("EXERCISE_LIST", "getExercises: $exercise")
                 exerciseList.add(exercise)
             }
 
+            Log.d("EXERCISE_LIST", "getExercises: $exerciseList")
             Resource.Success(exerciseList)
         } catch (e: Exception) {
 
