@@ -40,7 +40,7 @@ import com.project.fitx.presentation.auth.AuthViewModel
 import com.project.fitx.presentation.auth.components.DefaultButton
 import com.project.fitx.presentation.auth.components.FormTextField
 import com.project.fitx.presentation.auth.components.PasswordTextField
-import com.project.fitx.ui.theme.Purple40
+import com.project.fitx.ui.theme.PrimaryTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -55,6 +55,9 @@ fun LoginView(
 
     val loginFlow = viewModel.loginFlow.collectAsState()
 
+    var isErrorEmail by rememberSaveable { mutableStateOf(false) }
+    var isErrorPassword by rememberSaveable { mutableStateOf(false) }
+
     Scaffold(
         containerColor = Color.White
     ) {
@@ -67,7 +70,7 @@ fun LoginView(
                 text = "Sign in",
                 fontWeight = FontWeight.Bold,
                 fontSize = 30.sp,
-                color = Purple40,
+                color = PrimaryTheme,
             )
             Spacer(modifier = Modifier.height(50.dp))
             FormTextField(
@@ -76,7 +79,9 @@ fun LoginView(
                 icon = Icons.Outlined.Face,
                 onValueChanged = { emailInput -> textFieldValue = emailInput },
                 label = "E-mail",
-                text = textFieldValue
+                text = textFieldValue,
+                supportingText = "O email não existe ou foi digitado errado",
+                isError = isErrorEmail
             )
             PasswordTextField(
                 onValueChanged = { password -> passwordTextValue = password },
@@ -94,8 +99,8 @@ fun LoginView(
                     viewModel.login(email = textFieldValue, password = passwordTextValue)
                 },
                 color = ButtonDefaults.elevatedButtonColors(containerColor = Color.White),
-                textColor = Purple40,
-                borderStroke = BorderStroke(2.dp, color = Purple40)
+                textColor = PrimaryTheme,
+                borderStroke = BorderStroke(2.dp, color = PrimaryTheme)
             )
             DefaultButton(
                 modifier = Modifier
@@ -109,7 +114,7 @@ fun LoginView(
                         }
                     }
                 },
-                color = ButtonDefaults.elevatedButtonColors(containerColor = Purple40),
+                color = ButtonDefaults.elevatedButtonColors(containerColor = PrimaryTheme),
                 textColor = Color.White
             )
         }

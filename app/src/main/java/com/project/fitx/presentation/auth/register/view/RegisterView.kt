@@ -2,6 +2,7 @@ package com.project.fitx.presentation.auth.register.view
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -83,6 +84,7 @@ fun SignUpView(
                 onValueChanged = { newName ->
                     textNameValue = newName
                 }
+
             )
             FormTextField(
                 modifier = Modifier.padding(bottom = 15.dp),
@@ -114,6 +116,19 @@ fun SignUpView(
                 },
                 color = ButtonDefaults.elevatedButtonColors(containerColor = PrimaryTheme),
                 textColor = Color.White
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            DefaultButton(
+                modifier = Modifier
+                    .width(280.dp)
+                    .height(50.dp),
+                label = "Cancelar",
+                onAction = {
+                    navController.popBackStack()
+                },
+                color = ButtonDefaults.elevatedButtonColors(containerColor = Color.White),
+                textColor = PrimaryTheme,
+                borderStroke = BorderStroke(width = 3.dp, color = PrimaryTheme)
             )
         }
 

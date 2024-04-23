@@ -3,6 +3,7 @@ package com.project.fitx.presentation.auth.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +20,9 @@ fun FormTextField(
     icon: ImageVector,
     text: String,
     label: String,
-    onValueChanged: (String) -> Unit
+    isError: Boolean = false,
+    onValueChanged: (String) -> Unit,
+    supportingText: String = ""
 ) {
 
     Column(
@@ -32,6 +35,7 @@ fun FormTextField(
         )
         OutlinedTextField(
             value = text,
+            isError = isError,
             onValueChange = onValueChanged,
             placeholder = {
                 Text(text = hint, color = Color.Gray)
@@ -40,6 +44,16 @@ fun FormTextField(
                 Icon(imageVector = icon, contentDescription = "")
             },
             singleLine = true,
+            supportingText = {
+                if (isError) {
+                    Text(
+                        text = supportingText,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
+            }
         )
     }
 }
