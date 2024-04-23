@@ -23,10 +23,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.fitx.R
 import com.project.fitx.ui.theme.PrimaryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +41,7 @@ fun UserAppBar(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(90.dp)
+            .height(120.dp)
             .clip(shape = RoundedCornerShape(bottomStart = 15.dp, bottomEnd = 15.dp)),
         color = PrimaryTheme,
         shadowElevation = 15.dp,
@@ -50,9 +52,9 @@ fun UserAppBar(
             modifier = Modifier.fillMaxHeight()
         ) {
             Text(
-                text = "Bem-vindo!\n$name",
+                text = "${stringResource(id = R.string.welcome)}\n$name",
                 modifier = Modifier.padding(start = 9.dp),
-                fontSize = 20.sp,
+                fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )

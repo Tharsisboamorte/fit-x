@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
         repository.createTraining(description = description)
     }
 
-    fun getListOfTrainings() = viewModelScope.launch{
+    private fun getListOfTrainings() = viewModelScope.launch{
         _loading.value = true
         when (val result = repository.getTraining()) {
             is Resource.Success -> {

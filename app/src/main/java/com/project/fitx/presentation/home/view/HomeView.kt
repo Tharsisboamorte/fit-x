@@ -30,10 +30,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.project.fitx.R
 import com.project.fitx.presentation.home.HomeViewModel
 import com.project.fitx.presentation.home.components.AddDescription
 import com.project.fitx.presentation.home.components.TrainingCard
@@ -108,7 +110,7 @@ fun HomeView(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 90.dp),
+                .padding(top = 120.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -120,7 +122,7 @@ fun HomeView(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "TREINOS",
+                    text = stringResource(id = R.string.trainings),
                     fontWeight = FontWeight.Bold,
                     fontSize = 25.sp,
                     color = PrimaryTheme

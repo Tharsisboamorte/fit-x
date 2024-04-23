@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Fitx</string>
+    <string name="trainings">TREINOS</string>
+    <string name="welcome">Bem-vindo!</string>
 </resources>
