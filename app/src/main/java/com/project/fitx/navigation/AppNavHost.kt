@@ -8,13 +8,17 @@ import androidx.navigation.compose.rememberNavController
 import com.project.fitx.presentation.auth.AuthViewModel
 import com.project.fitx.presentation.auth.login.view.LoginView
 import com.project.fitx.presentation.auth.register.view.SignUpView
+import com.project.fitx.presentation.home.HomeViewModel
 import com.project.fitx.presentation.home.view.HomeView
 import com.project.fitx.presentation.profile.ProfileView
+import com.project.fitx.presentation.training.TrainingViewModel
 import com.project.fitx.presentation.training.view.TrainingView
 
 @Composable
 fun AppNavHost(
-    viewModel: AuthViewModel,
+    authViewModel: AuthViewModel,
+    homeViewModel: HomeViewModel,
+    trainingViewModel: TrainingViewModel,
     navController: NavHostController = rememberNavController(),
 ) {
     NavHost(
@@ -22,19 +26,19 @@ fun AppNavHost(
         startDestination = "login",
     ) {
         composable("login") {
-            LoginView(navController = navController, viewModel = viewModel)
+            LoginView(navController = navController, viewModel = authViewModel)
         }
         composable("register") {
-            SignUpView(navController = navController, viewModel = viewModel)
+            SignUpView(navController = navController, viewModel = authViewModel)
         }
         composable("home") {
-            HomeView(navController = navController)
+            HomeView(navController = navController, homeViewModel = homeViewModel)
         }
         composable("details") {
-            TrainingView(navController = navController, trainingTitle = "Title")
+            TrainingView(navController = navController, trainingViewModel = trainingViewModel)
         }
         composable("profile") {
-            ProfileView(navController = navController, viewModel = viewModel)
+            ProfileView(navController = navController, viewModel = authViewModel)
         }
     }
 }

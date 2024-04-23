@@ -1,3 +1,8 @@
 package com.project.fitx.presentation.splash
 
-//TODO: (MAKE A SPLASH SCREEN)
+import androidx.compose.runtime.Composable
+
+@Composable
+fun AppSplashScreen(){
+    //TODO: (MAKE A SPLASH SCREEN)
+}

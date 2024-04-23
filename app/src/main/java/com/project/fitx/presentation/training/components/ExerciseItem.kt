@@ -1,7 +1,6 @@
 package com.project.fitx.presentation.training.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,10 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.project.fitx.R
+import coil.compose.AsyncImage
 import com.project.fitx.ui.theme.PrimaryTheme
 
 @Composable
@@ -43,8 +41,8 @@ fun ExerciseItem(
     ) {
         Spacer(modifier = Modifier.width(15.dp))
         Card {
-            Image(
-                painter = painterResource(id = R.drawable.squat),
+            AsyncImage(
+                model = image,
                 contentDescription = "",
                 modifier = Modifier
                     .size(155.dp),
