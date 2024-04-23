@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.project.fitx.data.Resource
 import com.project.fitx.data.datasource.training.ExerciseRepository
+import com.project.fitx.data.datasource.training.TrainingRepository
 import com.project.fitx.data.model.Exercise
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrainingViewModel @Inject constructor(
-    private val repository: ExerciseRepository
+    private val repository: ExerciseRepository,
+    private val trainingRepository: TrainingRepository,
 ) : ViewModel() {
 
     private val _listFlow = mutableListOf<Exercise>()
@@ -44,6 +46,23 @@ class TrainingViewModel @Inject constructor(
                 result.message
                 _loading.value = false // Set loading state to false after error
             }
+        }
+    }
+
+
+    fun trainingEdit(trainingId: String, newTitle: String) = viewModelScope.launch {
+        try {
+            trainingRepository.editTraining(trainingId = trainingId, updatedTraining = newTitle)
+        } catch (e: Exception) {
+            //SHOW SNACK BAR
+        }
+    }
+
+    fun trainingDelete(trainingId: String) = viewModelScope.launch {
+        try {
+            trainingRepository.deleteTraining(trainingId = trainingId)
+        } catch (e: Exception) {
+            //SHOW SNACK BAR
         }
     }
 }

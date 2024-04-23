@@ -99,6 +99,7 @@ fun HomeView(
                         viewModel.createTraining(textFieldValue)
                         showPopup = false
                         viewModel.reset()
+                        navController.navigate("loading")
                     },
                     onValueChanged = { newText ->
                         textFieldValue = newText
@@ -133,8 +134,8 @@ fun HomeView(
                 modifier = Modifier.padding(start = 15.dp, top = 25.dp, end = 15.dp)
             ) {
                 items(viewModel.trainingList) { item ->
-                    TrainingCard(description = item.descricao, date = item.data.toString()) {
-                        navController.navigate("details?title=${item.descricao}") {
+                    TrainingCard(description = item.training.descricao, date = item.training.data.toString()) {
+                        navController.navigate("details?title=${item.training.descricao}&id=${item.id}") {
                             launchSingleTop = true
                         }
                     }

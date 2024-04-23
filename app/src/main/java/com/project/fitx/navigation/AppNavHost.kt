@@ -17,6 +17,7 @@ import com.project.fitx.presentation.home.view.HomeView
 import com.project.fitx.presentation.profile.ProfileView
 import com.project.fitx.presentation.training.TrainingViewModel
 import com.project.fitx.presentation.training.view.TrainingView
+import com.project.fitx.utils.LoadingScreen
 
 @Composable
 fun AppNavHost(
@@ -63,23 +64,30 @@ fun AppNavHost(
             HomeView(navController = navController, viewModel = homeViewModel)
         }
         composable(
-            route = "details?title={title}",
+            route = "details?title={title}&id={id}",
             arguments = listOf(
                 navArgument("title") {
                     type = NavType.StringType
                     defaultValue = "Treinamento Padrão"
+                },
+                navArgument("id") {
+                    type = NavType.StringType
+                    defaultValue = ""
                 }
             )) { backStackEntry ->
-            backStackEntry.arguments?.getString("title")?.let {
-                TrainingView(
-                    navController = navController,
-                    viewModel = trainingViewModel,
-                    title = it
-                )
-            }
+            TrainingView(
+                navController = navController,
+                trainingViewModel = trainingViewModel,
+                homeViewModel = homeViewModel,
+                title = backStackEntry.arguments?.getString("title")!!,
+                trainingId = backStackEntry.arguments?.getString("id")!!
+            )
         }
         composable("profile") {
             ProfileView(navController = navController, viewModel = authViewModel)
+        }
+        composable("loading") {
+            LoadingScreen(navController = navController)
         }
     }
 }

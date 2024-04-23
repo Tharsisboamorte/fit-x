@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.project.fitx.data.Resource
 import com.project.fitx.data.model.Training
+import com.project.fitx.domain.entities.TrainingEntity
 import com.project.fitx.utils.await
 import java.time.Instant
 import java.util.Date
@@ -26,19 +27,20 @@ class TrainingRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTraining(): Resource<List<Training>> {
+    override suspend fun getTraining(): Resource<List<TrainingEntity>> {
         return try {
             val querySnapshot = trainingCollection.get().await()
-            val trainingList = mutableListOf<Training>()
+            val trainingList = mutableListOf<TrainingEntity>()
 
             for (document in querySnapshot.documents) {
                 val name = document.getLong("nome")?.toInt() ?: 0
                 val descr = document.getString("descricao") ?: ""
                 val date = document.getDate("data") ?: Date()
                 val training = Training(nome = name, descricao = descr, data = date)
+                val trainingEntity = TrainingEntity(training = training, id = document.id)
 
-                Log.d("TRAINING_LIST", "getTraining: $training")
-                trainingList.add(training)
+                Log.d("TRAINING_LIST", "getTraining: $training & ${document.id}")
+                trainingList.add(trainingEntity)
             }
 
             Resource.Success(trainingList)
@@ -57,9 +59,9 @@ class TrainingRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun editTraining(trainingId: String, updatedTraining: Training) {
+    override suspend fun editTraining(trainingId: String, updatedTraining: String) {
         try {
-            trainingCollection.document().set(updatedTraining)
+            trainingCollection.document(trainingId).update("descricao",updatedTraining)
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -63,7 +63,7 @@ fun TrainingCard(
             ) {
                 Text(
                     text = description,
-                    modifier = Modifier.padding(start = 5.dp),
+                    modifier = Modifier.padding(start = 15.dp),
                     color = PrimaryTheme,
                     fontWeight = FontWeight.Bold,
                     fontSize = 25.sp
@@ -71,7 +71,7 @@ fun TrainingCard(
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(
                     text = "Criado: ${formatDate(date)}",
-                    modifier = Modifier.padding(start = 5.dp),
+                    modifier = Modifier.padding(start = 15.dp),
                     color = PrimaryTheme
                 )
             }

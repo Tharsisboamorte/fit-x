@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.project.fitx.data.Resource
 import com.project.fitx.data.datasource.auth.AuthRepository
 import com.project.fitx.data.datasource.training.TrainingRepository
-import com.project.fitx.data.model.Training
+import com.project.fitx.domain.entities.TrainingEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,8 +22,8 @@ class HomeViewModel @Inject constructor(
     val currentUser: FirebaseUser?
         get() = auth.currentUser
 
-    private val _listFlow = mutableListOf<Training>()
-    val trainingList: MutableList<Training> = _listFlow
+    private val _listFlow = mutableListOf<TrainingEntity>()
+    val trainingList: MutableList<TrainingEntity> = _listFlow
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
