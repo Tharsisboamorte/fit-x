@@ -28,6 +28,8 @@ fun PasswordTextField(
     modifier: Modifier = Modifier,
     onValueChanged: (String) -> Unit,
     password: String,
+    supportedText: String = "",
+    isError: Boolean = false,
 ) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
@@ -48,6 +50,8 @@ fun PasswordTextField(
             leadingIcon = {
                 Icon(imageVector = Icons.Outlined.Lock, contentDescription = "")
             },
+            isError = isError,
+            supportingText = { Text(text = supportedText) },
             singleLine = true,
             visualTransformation = if (passwordVisible)
                 VisualTransformation.None else PasswordVisualTransformation(),
@@ -62,6 +66,11 @@ fun PasswordTextField(
                     Icon(painter = painterResource(id = image), contentDescription = "")
                 }
             }
+        )
+        Text(
+            text = "Digite minimo de 6 digitos.",
+            fontSize = 12.sp,
+            color = Color.Gray
         )
     }
 }

@@ -40,6 +40,7 @@ import com.project.fitx.presentation.auth.components.DefaultButton
 import com.project.fitx.presentation.auth.components.FormTextField
 import com.project.fitx.presentation.auth.components.PasswordTextField
 import com.project.fitx.ui.theme.PrimaryTheme
+import com.project.fitx.utils.isEmail
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -107,6 +108,9 @@ fun SignUpView(
                     .width(280.dp)
                     .height(50.dp),
                 label = "Register",
+                isEnabled = passwordTextValue.length >= 6 && textNameValue.isNotEmpty() && isEmail(
+                    textEmailValue
+                ),
                 onAction = {
                     viewModel.signup(
                         email = textEmailValue,

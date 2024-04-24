@@ -24,9 +24,11 @@ fun DefaultButton(
     onAction: () -> Unit,
     color: ButtonColors,
     textColor: Color,
+    isEnabled: Boolean = true,
     borderStroke: BorderStroke = BorderStroke(width = 0.dp, color = Color.Transparent)
 ) {
     ElevatedButton(
+        enabled = isEnabled,
         modifier = modifier,
         onClick = onAction,
         shape = RoundedCornerShape(5.dp),
